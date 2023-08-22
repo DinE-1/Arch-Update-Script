@@ -12,17 +12,17 @@ fi
 ##LOGGING
 echo "**********************************************$(date) UPDATE****************************************************" >> "$logfile"
 echo "starting $(date)" | tee -a "$logfile"
-notify-send -t 100 "Update" "starting.."
+notify-send -h int:transient:1 -t 100 "Update" "starting.."
 
 ##UPDATING
 sudo pacman -Syu --noconfirm --color=always 2>&1 | tee -a "$logfile"
 
-notify-send -t 100 "Update" "AUR"
+notify-send -h int:transient:1 -t 100 "Update" "AUR"
 echo "Searching AUR.."
 echo "---AUR---" >> "$logfile"
 
 yay -Syu --noconfirm --color=always 2>&1 | tee -a "$logfile"
 
 ##NOTIFYING
-notify-send "Update" "Command Completed"
+notify-send -h int:transient:1 "Update" "Command Completed"
 echo "COMPLETED" 
