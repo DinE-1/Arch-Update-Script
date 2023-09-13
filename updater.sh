@@ -7,6 +7,7 @@ path=`dirname $0`
 #Construct path of logfile and configfile
 config_file="$path/updater.cfg"
 log_file="$path/updater.log"
+readme_file="$path/README.md"
 
 #Create logfile and configfile if not found
 if [ ! -f $log_file ]; then 
@@ -29,6 +30,7 @@ source $config_file
 chmod 544 $0
 chmod 644 $log_file
 chmod 644 $config_file
+chmod 444 $readme_file
 
 ##LOGGING
 echo "**********************************************$(date) UPDATE****************************************************" >> "$log_file"
