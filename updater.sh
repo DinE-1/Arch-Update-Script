@@ -22,8 +22,13 @@ if [ ! -f $config_file ]; then
  echo "#Set to true to update ClamAV database (recommended)" >> "$config_file"
  echo "perform_ClamAVdb_update=true" >> "$config_file"
  echo "CONFIG FILE POPULATED" | tee -a "$log_file"
- source "$config_file"
 fi
+source $config_file
+
+#Setting file permissions
+chmod 544 $0
+chmod 644 $log_file
+chmod 644 $config_file
 
 ##LOGGING
 echo "**********************************************$(date) UPDATE****************************************************" >> "$log_file"
@@ -33,6 +38,7 @@ notify-send -h int:transient:1 -t 100 "Update" "starting.."
 ##UPDATING
 
 #System update(PACMAN)
+echo "~~~~PACMAN~~~~" | tee -a "$log_file"
 sudo pacman -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
 
 #AUR update(YAY)
