@@ -40,13 +40,13 @@ notify-send -h int:transient:1 -t 100 "Update" "starting.."
 ##UPDATING
 
 #System update(PACMAN)
-echo "~~~~PACMAN~~~~" | tee -a "$log_file"
+echo "System Update Starting..." | tee -a "$log_file"
 sudo pacman -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
 
 #AUR update(YAY)
 if [ "$perform_AUR_Update" = true ]; then
 notify-send -h int:transient:1 -t 100 "Update" "AUR"
-echo "Searching AUR.."
+echo "----Searching AUR----"
 echo "---AUR---" >> "$log_file"
 yay -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
 fi
