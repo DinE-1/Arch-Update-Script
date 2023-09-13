@@ -34,7 +34,7 @@ chmod 444 $readme_file
 
 ##LOGGING
 echo "**********************************************$(date) UPDATE****************************************************" >> "$log_file"
-echo "starting $(date)" | tee -a "$log_file"
+echo "Starting $(date)" | tee -a "$log_file"
 notify-send -h int:transient:1 -t 100 "Update" "starting.."
 
 ##UPDATING
@@ -54,7 +54,7 @@ fi
 #ClamAV database update (IF clamav is installed)
 if [[ "$perform_ClamAVdb_update" = true && $(pacman -Qs clamav) > /dev/null ]]; then
  notify-send -h int:transient:1 -t 100 "Update" "ClamAV database"
- echo "ClamAV databse.."
+ echo "ClamAV database.."
  echo "++++ClamAV database++++" >> "$log_file"
  sudo freshclam | tee -a "$log_file"
 fi
