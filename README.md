@@ -1,3 +1,8 @@
 # Arch-Update-Script
-Modify the updater.cfg file accordingly to achieve the desired behavior.
-The configuration file will be created on the first execution of the script.
+
+##Usage
+*Run the updater.sh script to start the upating process.
+*The log file and config will be created automatically in the updater.sh script directory after the first run
+ 
+##Modifying the script behaviour
+Set the variables in the updater.cfg file to values according to need.
