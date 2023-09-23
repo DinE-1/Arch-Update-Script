@@ -33,6 +33,7 @@ fi
 source $config_file
 
 #Setting file permissions
+chmod 700 $path
 chmod 544 $0
 chmod 644 $log_file
 chmod 644 $config_file
