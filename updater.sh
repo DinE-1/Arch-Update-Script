@@ -7,7 +7,13 @@ path=`dirname $0`
 #Construct path of logfile and configfile
 config_file="$path/updater.cfg"
 log_file="$path/updater.log"
-readme_file="$path/README.md"
+
+#Hiding readme file
+if [ -e "$path/README.md" ]; then
+mv "$path/README.md" "$path/.README.md"
+echo "README FILE HIDDEN" | tee -a "$log_file"
+fi
+readme_file="$path/.README.md"
 
 #Create logfile and configfile if not found
 if [ ! -f $log_file ]; then 
