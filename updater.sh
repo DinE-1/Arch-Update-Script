@@ -4,6 +4,10 @@ trap 'echo "INTERRUPTED" | tee -a $log_file; notify-send -t 100 "Update" "Interr
 #Find the directory of script
 path=`dirname $0`
 
+#path of yay and pacman
+pacman=`which pacman`
+yay=`which yay`
+
 #Construct path of logfile and configfile
 config_file="$path/updater.cfg"
 log_file="$path/updater.log"
@@ -48,14 +52,14 @@ notify-send -h int:transient:1 -t 100 "Update" "starting.."
 
 #System update(PACMAN)
 echo "System Update Starting..." | tee -a "$log_file"
-sudo pacman -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
+sudo $pacman -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
 
 #AUR update(YAY)
 if [ "$perform_AUR_Update" = true ]; then
 notify-send -h int:transient:1 -t 100 "Update" "AUR"
 echo "----Searching AUR----"
 echo "---AUR---" >> "$log_file"
-yay -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
+$yay -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
 fi
 
 #ClamAV database update (IF clamav is installed)
