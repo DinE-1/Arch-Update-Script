@@ -1,0 +1,4 @@
+#Ignore user specific files
+updater.cfg
+updater.log
+.README.md
