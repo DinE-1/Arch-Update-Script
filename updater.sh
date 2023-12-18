@@ -48,7 +48,7 @@ notify-send -h int:transient:1 -t 100 "Update" "starting.."
 echo "System Update Starting..." | tee -a "$log_file"
 sudo $pacman -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
 if [ $? -ne 0 ]; then
-echo "Some errors occuring during system update(using Pacman)
+echo "Some errors occured during system update(using Pacman)" | tee -a "$log_file"
 fi
 #AUR update(YAY)
 if [ "$perform_AUR_Update" = true ]; then
@@ -57,7 +57,7 @@ echo "----Searching AUR----"
 echo "---AUR---" >> "$log_file"
 $yay -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
 if [ $? -ne 0 ]; then
-echo "Some errors occuring during AUR update(using yay AUR helper)"
+echo "Some errors occured during AUR update(using yay AUR helper)" | tee -a "$log_file"
 fi
 fi
 
@@ -68,7 +68,7 @@ if [[ "$perform_ClamAVdb_update" = true && $(pacman -Qs clamav) > /dev/null ]]; 
  echo "++++ClamAV database++++" >> "$log_file"
  sudo freshclam | tee -a "$log_file"
 if [ $? -ne 0 ]; then
-echo "Some errors occuring during ClamAV database update(using freshclam command)"
+echo "Some errors occured during ClamAV database update(using freshclam command)" | tee -a "$log_file"
 fi
 fi
 
