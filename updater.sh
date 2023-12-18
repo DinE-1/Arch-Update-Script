@@ -11,13 +11,7 @@ yay=`which yay`
 #Construct path of logfile and configfile
 config_file="$path/updater.cfg"
 log_file="$path/updater.log"
-
-#Hiding readme file
-if [ -e "$path/README.md" ]; then
-mv "$path/README.md" "$path/.README.md"
-echo "README FILE HIDDEN" | tee -a "$log_file"
-fi
-readme_file="$path/.README.md"
+readme_file="$path/README.md"
 
 #Create logfile and configfile if not found
 if [ ! -f $log_file ]; then 
@@ -53,13 +47,18 @@ notify-send -h int:transient:1 -t 100 "Update" "starting.."
 #System update(PACMAN)
 echo "System Update Starting..." | tee -a "$log_file"
 sudo $pacman -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
-
+if [ $? -ne 0 ]; then
+echo "Some errors occuring during system update(using Pacman)
+fi
 #AUR update(YAY)
 if [ "$perform_AUR_Update" = true ]; then
 notify-send -h int:transient:1 -t 100 "Update" "AUR"
 echo "----Searching AUR----"
 echo "---AUR---" >> "$log_file"
 $yay -Syu --noconfirm --color=always 2>&1 | tee -a "$log_file"
+if [ $? -ne 0 ]; then
+echo "Some errors occuring during AUR update(using yay AUR helper)"
+fi
 fi
 
 #ClamAV database update (IF clamav is installed)
@@ -68,6 +67,9 @@ if [[ "$perform_ClamAVdb_update" = true && $(pacman -Qs clamav) > /dev/null ]]; 
  echo "ClamAV database.."
  echo "++++ClamAV database++++" >> "$log_file"
  sudo freshclam | tee -a "$log_file"
+if [ $? -ne 0 ]; then
+echo "Some errors occuring during ClamAV database update(using freshclam command)"
+fi
 fi
 
 ##NOTIFYING after completion
